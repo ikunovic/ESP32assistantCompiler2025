@@ -64,8 +64,16 @@ export const BluetoothUpload: React.FC<BluetoothUploadProps> = ({ compilationRes
         }
 
         try {
+            // Convert base64 string to ArrayBuffer
+            const binaryString = window.atob(compilationResult.binaryData);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+
             await bluetoothManager.uploadBinary(
-                compilationResult.binaryData,
+                bytes.buffer,
                 (progress) => {
                     setUploadProgress(progress);
                 }

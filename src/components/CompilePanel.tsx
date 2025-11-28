@@ -32,8 +32,6 @@ export const CompilePanel: React.FC<CompilePanelProps> = ({ code, onCompilationC
                 errors: response.data.errors || [],
                 warnings: response.data.warnings || [],
                 binaryData: response.data.binaryData
-                    ? Uint8Array.from(atob(response.data.binaryData), c => c.charCodeAt(0)).buffer
-                    : undefined
             };
 
             setResult(compilationResult);
